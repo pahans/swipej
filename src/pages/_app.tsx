@@ -1,8 +1,9 @@
-import 'tailwindcss/tailwind.css';
+import 'isomorphic-fetch';
+
 import type { AppProps /*, AppContext */ } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;

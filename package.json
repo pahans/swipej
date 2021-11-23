@@ -11,9 +11,11 @@
     "node": "14.x"
   },
   "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
     "next": "^12.0.4",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "swr": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
