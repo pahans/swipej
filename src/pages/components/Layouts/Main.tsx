@@ -2,11 +2,11 @@ import React from 'react';
 import NavBar from '../Nav/Nav';
 import 'tailwindcss/tailwind.css';
 
-interface ILayout {
+interface IMain {
   children: React.ReactNode;
 }
 
-const Layout = ({ children }: ILayout): JSX.Element => {
+const Main = ({ children }: IMain): JSX.Element => {
   return (
     <main>
       <NavBar userName="User name" />
@@ -29,4 +29,4 @@ const Layout = ({ children }: ILayout): JSX.Element => {
   );
 };
 
-export default Layout;
+export default Main;

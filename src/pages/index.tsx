@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import useSWR from 'swr';
 import { API_URL, ENDPOINT_MATCHES, USER_ID } from '../constants';
-import Layout from './components/Layout';
+import Layout from './components/Layouts/Main';
 
 const endpoint = `${API_URL}/${USER_ID}/${ENDPOINT_MATCHES}`;
 
