@@ -1,29 +1,19 @@
 import React from 'react';
 import NavBar from '../Nav/Nav';
 import 'tailwindcss/tailwind.css';
+import { useUserContext } from '../../contexts/UserContext';
 
 interface IMain {
   children: React.ReactNode;
 }
 
 const Main = ({ children }: IMain): JSX.Element => {
+  const user = useUserContext();
   return (
     <main>
-      <NavBar userName="User name" />
-      <div className="">
+      <NavBar userName={`${user.firstName} ${user.lastName}`} />
+      <div className="h-screen">
         {children}
-        <footer className="flex items-center justify-center w-full h-24 border-t">
-          <div className="xl:container xl:mx-auto">
-            <a
-              className="flex items-center justify-center"
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-            </a>
-          </div>
-        </footer>
       </div>
     </main>
   );

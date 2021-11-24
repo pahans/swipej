@@ -1,46 +1,57 @@
 import Head from 'next/head';
 import React from 'react';
 import useSWR from 'swr';
-import { API_URL, ENDPOINT_MATCHES, USER_ID } from '../constants';
+import { API_URL, ENDPOINT_JOB_MATCHES, ENDPOINT_USER, USER_ID } from '../constants';
+import JobList from './components/JobList/JobList';
 import Layout from './components/Layouts/Main';
+import { UserContext, UserContextProvider } from './contexts/UserContext';
 
-const endpoint = `${API_URL}/${USER_ID}/${ENDPOINT_MATCHES}`;
+const jobsEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_JOB_MATCHES}`;
+const userEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_USER}`;
 
-const fetchMatches = () => fetch(endpoint).then((res) => res.json());
+const fetchJobMatches = () => fetch(jobsEndpoint).then((res) => res.json());
+const fetchUser = () => fetch(userEndpoint).then((res) => res.json());
 
 interface IHomeProps {
-  initialData: any;
+  initialData: {
+    jobs: any,
+    user: UserContext,
+  };
 }
 
 export default function Home({ initialData }: IHomeProps) {
-  const { data: jobList } = useSWR(endpoint, fetchMatches, { fallbackData: initialData });
+  const { data: jobList } = useSWR(jobsEndpoint, fetchJobMatches, {
+    fallbackData: initialData.jobs,
+  });
+  const { data: user } = useSWR(userEndpoint, fetchUser, { fallbackData: initialData.user });
+
   return (
-    <div>
-      <Head>
-        <title>swipejobs | Gig work with W-2 benefits</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <div className="xl:container xl:mx-auto px-4">
-          <h1 className="text-6xl font-bold">Job Matches</h1>
-          {jobList.map((job: any) => {
-            return (
-              <div key={job.jobId}>
-                <h3>{job.jobTitle.name}</h3>
-              </div>
-            );
-          })}
-        </div>
-      </Layout>
-    </div>
+    <UserContextProvider user={user}>
+      <div>
+        <Head>
+          <title>swipejobs | Gig work with W-2 benefits</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Layout>
+          <div className="container xl:mx-auto px-4 max-w-screen-md">
+            <h1 className="text-6xl font-bold">Job Matches</h1>
+            <JobList jobList={jobList}></JobList>
+          </div>
+        </Layout>
+      </div>
+    </UserContextProvider>
   );
 }
 
 export async function getServerSideProps() {
-  const res = await fetchMatches();
+  const jobs = await fetchJobMatches();
+  const user = await fetchUser();
   return {
     props: {
-      initialData: res,
+      initialData: {
+        jobs,
+        user,
+      },
     },
   };
 }
