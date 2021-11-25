@@ -2,9 +2,9 @@ import Head from 'next/head';
 import React from 'react';
 import useSWR from 'swr';
 import { API_URL, ENDPOINT_JOB_MATCHES, ENDPOINT_USER, USER_ID } from '../constants';
-import JobList from './components/JobList/JobList';
-import Layout from './components/Layouts/Main';
-import { UserContext, UserContextProvider } from './contexts/UserContext';
+import JobList from '../components/JobList/JobList';
+import Layout from '../components/Layouts/Main';
+import { UserContext, UserContextProvider } from '../contexts/UserContext';
 
 const jobsEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_JOB_MATCHES}`;
 const userEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_USER}`;
@@ -33,8 +33,7 @@ export default function Home({ initialData }: IHomeProps) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Layout>
-          <div className="container xl:mx-auto px-4 max-w-screen-md">
-            <h1 className="text-6xl font-bold">Job Matches</h1>
+          <div className="container mx-auto px-4 max-w-screen-md divide-gray-200 divide-y">
             <JobList jobList={jobList}></JobList>
           </div>
         </Layout>
