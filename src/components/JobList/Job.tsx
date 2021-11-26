@@ -125,8 +125,23 @@ const Job = ({ job }: IJobProps): JSX.Element => {
               <ListItem.Title>Shift Dates</ListItem.Title>
               <ul>
                 {job.shifts.map((shift) => (
-                  <ListItem.Text key={shift.startDate.toString() + shift.endDate.toString()}>
-                    {shift.startDate}
+                  <ListItem.Text key={shift.startDate + shift.endDate}>
+                    {new Date(shift.startDate).toLocaleString('en-US', {
+                      weekday: 'short',
+                      day: 'numeric',
+                      month: 'short',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true,
+                    })}
+                    -
+                    {new Date(shift.endDate).toLocaleString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true,
+                    })}
+                    {` `}
+                    PST
                   </ListItem.Text>
                 ))}
               </ul>

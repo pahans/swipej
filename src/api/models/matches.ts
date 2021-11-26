@@ -20,8 +20,8 @@ export interface ICompany {
 }
 
 export interface IShift {
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 }
 
 export interface IJob {
