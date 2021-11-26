@@ -7,7 +7,7 @@ function NavBar({ userName }: { userName: string }) {
       <div className="container mx-auto flex flex-wrap items-center justify-between max-w-screen-md">
         <div className="flex justify-between lg:justify-start lg:w-auto px-4">
           <a className="" href="#">
-            <Image src={Logo} height={35} width={165} />
+            <Image src={Logo} height={35} width={165} alt="swipe jobs logo" />
           </a>
         </div>
         <div className="justify-end text-white px-4">

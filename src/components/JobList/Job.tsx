@@ -96,7 +96,7 @@ const Job = ({ job }: IJobProps): JSX.Element => {
     <div className=" bg-gray-50">
       <div className="space-y-2">
         <div className="relative w-full h-60">
-          <Image src={job.jobTitle.imageUrl} layout="fill" objectFit="cover" />
+          <Image src={job.jobTitle.imageUrl} layout="fill" objectFit="cover" alt={job.jobTitle.name} />
         </div>
 
         <div className="px-4">
@@ -209,7 +209,7 @@ const Job = ({ job }: IJobProps): JSX.Element => {
                   className="flex-1"
                   type="regular"
                 >
-                  I'll Take it
+                  I&apos;ll Take it
                 </Button>
               </>
             )}
