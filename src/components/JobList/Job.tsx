@@ -9,7 +9,6 @@ import InfoBox from './InfoBox';
 import ListItem from './ListItem';
 import { acceptJob, rejectJob } from '../../api';
 import { useUserContext } from '../../contexts/UserContext';
-import { types } from '@storybook/addons';
 
 interface IJobProps {
   job: IJob;
@@ -124,26 +123,27 @@ const Job = ({ job }: IJobProps): JSX.Element => {
             <div>
               <ListItem.Title>Shift Dates</ListItem.Title>
               <ul>
-                {job.shifts.map((shift) => (
-                  <ListItem.Text key={shift.startDate + shift.endDate}>
-                    {new Date(shift.startDate).toLocaleString('en-US', {
-                      weekday: 'short',
-                      day: 'numeric',
-                      month: 'short',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: true,
-                    })}
-                    -
-                    {new Date(shift.endDate).toLocaleString('en-US', {
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: true,
-                    })}
-                    {` `}
-                    PST
-                  </ListItem.Text>
-                ))}
+                {job.shifts.map((shift) => {
+                  const startDate = new Date(shift.startDate).toLocaleString('en-US', {
+                    weekday: 'short',
+                    day: 'numeric',
+                    month: 'short',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true,
+                  });
+                  const endDate = new Date(shift.endDate).toLocaleString('en-US', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true,
+                  });
+                  const formatedShiftTime = `${startDate} - ${endDate} PST`;
+                  return (
+                    <ListItem.Text key={shift.startDate + shift.endDate}>
+                      {formatedShiftTime}
+                    </ListItem.Text>
+                  );
+                })}
               </ul>
             </div>
           </ListItem>
