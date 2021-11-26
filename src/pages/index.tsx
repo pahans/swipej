@@ -1,30 +1,30 @@
 import Head from 'next/head';
 import React from 'react';
 import useSWR from 'swr';
-import { API_URL, ENDPOINT_JOB_MATCHES, ENDPOINT_USER, USER_ID } from '../constants';
 import JobList from '../components/JobList/JobList';
 import Layout from '../components/Layouts/Main';
-import { UserContext, UserContextProvider } from '../contexts/UserContext';
-import * as Matches from '../models/matches';
-
-const jobsEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_JOB_MATCHES}`;
-const userEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_USER}`;
-
-const fetchJobMatches = () => fetch(jobsEndpoint).then((res) => res.json());
-const fetchUser = () => fetch(userEndpoint).then((res) => res.json());
+import { UserContextProvider } from '../contexts/UserContext';
+import * as Matches from '../api/models/matches';
+import * as User from '../api/models/user';
+import { acceptJob, fetchJobMatches, fetchUser, rejectJob } from '../api';
 
 interface IHomeProps {
   initialData: {
-    jobs: Matches.Job;
-    user: UserContext;
+    jobs: Matches.IJob;
+    user: User.IUser;
   };
 }
 
+export const USER_ID = '7f90df6e-b832-44e2-b624-3143d428001f';
+
 export default function Home({ initialData }: IHomeProps) {
-  const { data: jobList } = useSWR(jobsEndpoint, fetchJobMatches, {
+  const { data: jobList } = useSWR('jobs', () => fetchJobMatches(USER_ID), {
     fallbackData: initialData.jobs,
   });
-  const { data: user } = useSWR(userEndpoint, fetchUser, { fallbackData: initialData.user });
+
+  const { data: user } = useSWR('user', () => fetchUser(USER_ID), {
+    fallbackData: initialData.user,
+  });
 
   return (
     <UserContextProvider user={user}>
@@ -42,8 +42,8 @@ export default function Home({ initialData }: IHomeProps) {
 }
 
 export async function getServerSideProps() {
-  const jobs = await fetchJobMatches();
-  const user = await fetchUser();
+  const jobs = await fetchJobMatches(USER_ID);
+  const user = await fetchUser(USER_ID);
   return {
     props: {
       initialData: {

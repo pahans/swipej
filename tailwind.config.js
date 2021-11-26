@@ -9,7 +9,8 @@ module.exports = {
       emerald: '#00d6a1',
       white: colors.white,
       black: colors.black,
-      gray: colors.gray
+      gray: colors.gray,
+      red: colors.red
     },
     listStyleType: {
       dash: '-',

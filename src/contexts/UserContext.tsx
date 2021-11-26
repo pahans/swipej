@@ -1,17 +1,7 @@
 import React from 'react';
+import { IUser } from '../api/models/user';
 
-export interface UserContext {
-  address: {
-    formattedAddress: string;
-    zoneId: string;
-  };
-  email: string;
-  firstName: string;
-  lastName: string;
-  maxJobDistance: number;
-  phoneNumber: string;
-  workerId: string;
-}
+export interface UserContext extends IUser {}
 
 const mapContextInitialValue = {
   address: {
@@ -30,7 +20,7 @@ const UserContext = React.createContext<UserContext>(mapContextInitialValue);
 
 export function UserContextProvider({
   children,
-  user
+  user,
 }: {
   children: React.ReactNode;
   user: UserContext;
