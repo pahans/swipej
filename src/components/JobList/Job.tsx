@@ -191,6 +191,7 @@ const Job = ({ job }: IJobProps): JSX.Element => {
           )}
           <div className="flex py-4 px-4">
             {<div className={`${error ? 'text-red-400' : 'text-emerald'}`}>{error || success}</div>}
+            {isLoading && <div>Loading ...</div>}
             {!isLoading && !error && !success && (
               <>
                 <Button
