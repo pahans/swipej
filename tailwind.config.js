@@ -6,10 +6,13 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      teal: colors.teal,
+      emerald: '#00d6a1',
       white: colors.white,
       black: colors.black,
       gray: colors.gray
+    },
+    listStyleType: {
+      dash: '-',
     },
     extend: {},
   },

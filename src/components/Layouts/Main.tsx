@@ -12,7 +12,7 @@ const Main = ({ children }: IMain): JSX.Element => {
   return (
     <main>
       <NavBar userName={`${user.firstName} ${user.lastName}`} />
-      <div className="h-screen">
+      <div>
         {children}
       </div>
     </main>

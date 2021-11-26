@@ -5,6 +5,7 @@ import { API_URL, ENDPOINT_JOB_MATCHES, ENDPOINT_USER, USER_ID } from '../consta
 import JobList from '../components/JobList/JobList';
 import Layout from '../components/Layouts/Main';
 import { UserContext, UserContextProvider } from '../contexts/UserContext';
+import * as Matches from '../models/matches';
 
 const jobsEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_JOB_MATCHES}`;
 const userEndpoint = `${API_URL}/${USER_ID}/${ENDPOINT_USER}`;
@@ -14,8 +15,8 @@ const fetchUser = () => fetch(userEndpoint).then((res) => res.json());
 
 interface IHomeProps {
   initialData: {
-    jobs: any,
-    user: UserContext,
+    jobs: Matches.Job;
+    user: UserContext;
   };
 }
 
@@ -27,15 +28,13 @@ export default function Home({ initialData }: IHomeProps) {
 
   return (
     <UserContextProvider user={user}>
-      <div>
+      <div className="bg-gray-200">
         <Head>
           <title>swipejobs | Gig work with W-2 benefits</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Layout>
-          <div className="container mx-auto px-4 max-w-screen-md divide-gray-200 divide-y">
-            <JobList jobList={jobList}></JobList>
-          </div>
+          <JobList jobList={jobList}></JobList>
         </Layout>
       </div>
     </UserContextProvider>
