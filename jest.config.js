@@ -1,8 +1,6 @@
 module.exports = {
   collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
-    '!**/*.d.ts',
-    '!**/node_modules/**',
+    '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
   ],
   testEnvironment: "jsdom",
   moduleNameMapper: {
